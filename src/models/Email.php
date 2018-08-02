@@ -12,9 +12,9 @@
  * @link     http://g.lonefry.com
  */
 
-namespace Stationer\Barrel\Data;
+namespace Stationer\Barrel\models;
 
-use Stationer\Graphite\data\Record;
+use Stationer\Graphite\data\PassiveRecord;
 
 /**
  * Email class - for managing Emails
@@ -30,27 +30,38 @@ use Stationer\Graphite\data\Record;
  * @author   LoneFry <dev@lonefry.com>
  * @license  CC BY-NC-SA http://creativecommons.org/licenses/by-nc-sa/3.0/
  * @link     http://g.lonefry.com
- * @see      /^/lib/Record.php
+ * @see      PassiveRecord.php
+ * @property int    email_id
+ * @property int    $created_uts
+ * @property string $updated_dts
+ * @property int    $login_id
+ * @property string headerRaw
+ * @property string bodyRaw
+ * @property string to
+ * @property string from
+ * @property string subject
+ * @property int    date
+ * @property string messageId
  */
-class Email extends Record {
+class Email extends PassiveRecord {
     /** @var string Table name, un-prefixed */
-    protected static $table = G_DB_TABL.'Emails';
+    protected static $table = G_DB_TABL.'Email';
     /** @var string Primary Key */
     protected static $pkey = 'email_id';
     /** @var string Select query, without WHERE clause */
     protected static $query = '';
     /** @var array Table definition as collection of fields */
     protected static $vars = [
-        'email_id'      => ['type' => 'i', 'min' => 1, 'guard' => true],
-        'recordChanged' => ['type' => 'dt', 'min' => 0, 'guard' => true],
-        'created_uts'   => ['type' => 'ts', 'min' => 1, 'guard' => true],
-        'headerRaw'     => ['type' => 's', 'max' => 65535],
-        'bodyRaw'       => ['type' => 's', 'max' => 65535],
-        'to'            => ['type' => 's', 'max' => 65535],
-        'from'          => ['type' => 's', 'max' => 65535],
-        'subject'       => ['type' => 's', 'max' => 65535],
-        'date'          => ['type' => 'dt', 'format' => 'r'],
-        'messageId'     => ['type' => 's', 'max' => 155],
+        'email_id'    => ['type' => 'i', 'min' => 1, 'guard' => true],
+        'created_uts' => ['type' => 'ts', 'min' => 0, 'guard' => true],
+        'updated_dts' => ['type' => 'dt', 'min' => NOW, 'def' => NOW, 'guard' => true],
+        'headerRaw'   => ['type' => 's', 'max' => 65535],
+        'bodyRaw'     => ['type' => 's', 'max' => 65535],
+        'to'          => ['type' => 's', 'max' => 65535],
+        'from'        => ['type' => 's', 'max' => 65535],
+        'subject'     => ['type' => 's', 'max' => 65535],
+        'date_uts'    => ['type' => 'ts', 'format' => 'r'],
+        'messageId'   => ['type' => 's', 'max' => 155],
     ];
 
     /** @var array Dictionary of fields which are cached from the headerRaw */
@@ -70,11 +81,11 @@ class Email extends Record {
      * @return array
      */
     public static function parseHeaders($headerRaw) {
-        $headers = array();
+        $headers = [];
         // Un-wrap lines
-        $tmp = str_replace(array("\r\n ", "\r ", "\n ", "\r\n\t", "\r\t", "\n\t"), ' ', $headerRaw);
+        $tmp = str_replace(["\r\n ", "\r ", "\n ", "\r\n\t", "\r\t", "\n\t"], ' ', $headerRaw);
         // Convert all line breaks to single newlines for exploding
-        $tmp = str_replace(array("\r\n", "\r"), "\n", $tmp);
+        $tmp = str_replace(["\r\n", "\r"], "\n", $tmp);
         // The actual parsing
         foreach (explode("\n", $tmp) as $line) {
             $key = substr($line, 0, strpos($line, ":"));
@@ -118,7 +129,7 @@ class Email extends Record {
      */
     public static function sanitizeHeaders($headers) {
         if (is_string($headers)) {
-            $headers = self::parseHeaders($headers);
+            $headers  = self::parseHeaders($headers);
             $toString = true;
         }
 
@@ -154,7 +165,7 @@ class Email extends Record {
             $headers['Bcc'] = self::email_unique($headers['Bcc'], true);
         }
         if (isset($headers['Subject'])) {
-            $headers['Subject'] = str_replace(array("\r", "\n"), '', $headers['Subject']);
+            $headers['Subject'] = str_replace(["\r", "\n"], '', $headers['Subject']);
         } else {
             // ensure Subject header
             $headers['Subject'] = '';
@@ -184,7 +195,7 @@ class Email extends Record {
      */
     public static function email_unique($emails, $validate = false) {
         // normalize delimiter
-        $emails = str_replace(array(';', "\r", "\n", ',,'), ',', $emails);
+        $emails = str_replace([';', "\r", "\n", ',,'], ',', $emails);
         // to array for further processing
         $emails = explode(',', $emails);
         // trim all addresses to remove edge whitespace
@@ -264,11 +275,11 @@ class Email extends Record {
     public function headerRaw() {
         if (count($args = func_get_args())) {
             if (is_array($args[0])) {
-                $headers = $args[0];
+                $headers   = $args[0];
                 $headerRaw = self::unparseHeaders($headers);
             } else {
                 $headerRaw = $args[0];
-                $headers = self::parseHeaders($headerRaw);
+                $headers   = self::parseHeaders($headerRaw);
             }
 
             // If any of our cached fields are included, set them
@@ -331,7 +342,7 @@ class Email extends Record {
      */
     public function subject() {
         if (count($args = func_get_args())) {
-            $val = str_replace(array("\r", "\n"), '', $args[0]);
+            $val = str_replace(["\r", "\n"], '', $args[0]);
             $val = $this->_s(__FUNCTION__, $val);
             $this->setHeader(__FUNCTION__, $val, false);
 

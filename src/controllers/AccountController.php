@@ -19,7 +19,7 @@ use Stationer\Graphite\View;
 use Stationer\Graphite\Security;
 use Stationer\Graphite\Controller;
 use Stationer\Graphite\data\Login;
-use Stationer\Barrel\data\Config;
+use Stationer\Barrel\data\ConfigLog;
 
 /**
  * AccountController class - performs user account related actions
@@ -138,7 +138,7 @@ class AccountController extends Controller {
                 } elseif (null === $r) {
                     $this->View->msg = 'No changes detected, not trying to update your account.';
                 } else {
-                    Config::log('Logins', $Login->login_id, $diff);
+                    ConfigLog::log('Logins', $Login->login_id, $diff);
 // TODO: Rebuild the mail subsystem!
 //                    /** @var Postmaster $Post */
 //                    $Post = G::build('Postmaster', Postmaster::HELP_ALERT);
