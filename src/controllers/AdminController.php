@@ -19,10 +19,10 @@ use Stationer\Graphite\View;
 use Stationer\Graphite\Security;
 use Stationer\Graphite\Localizer;
 use Stationer\Graphite\Controller;
-use Stationer\Graphite\data\Record;
-use Stationer\Graphite\data\Role;
-use Stationer\Graphite\data\Login;
-use Stationer\Graphite\data\LoginLog;
+use Stationer\Graphite\data\ActiveRecord;
+use Stationer\Graphite\models\Role;
+use Stationer\Graphite\models\Login;
+use Stationer\Graphite\models\LoginLog;
 
 /**
  * AdminController class - performs Administrative actions
@@ -64,6 +64,7 @@ class AdminController extends Controller {
      * @param array $request Request_method-specific parameters
      *
      * @return View
+     * @throws \Exception
      */
     public function do_Login(array $argv = array(), array $request = array()) {
         if (!G::$S->roleTest('Admin/Login')) {
@@ -99,6 +100,7 @@ class AdminController extends Controller {
      * @param array $request Request_method-specific parameters
      *
      * @return View
+     * @throws \Exception
      */
     public function do_LoginAdd(array $argv = array(), array $request = array()) {
         if (!G::$S->roleTest('Admin/Login')) {
@@ -208,6 +210,7 @@ class AdminController extends Controller {
      * @param array $request Request_method-specific parameters
      *
      * @return View
+     * @throws \Exception
      */
     public function do_LoginEdit(array $argv = array(), array $request = array()) {
         if (!G::$S->roleTest('Admin/Login')) {
@@ -355,6 +358,7 @@ class AdminController extends Controller {
      * @param array $request Request_method-specific parameters
      *
      * @return View
+     * @throws \Exception
      */
     public function do_Role(array $argv = array(), array $request = array()) {
         if (!G::$S->roleTest('Admin/Role')) {
@@ -377,6 +381,7 @@ class AdminController extends Controller {
      * @param array $request Request_method-specific parameters
      *
      * @return View
+     * @throws \Exception
      */
     public function do_RoleAdd(array $argv = array(), array $request = array()) {
         if (!G::$S->roleTest('Admin/Role')) {
@@ -417,6 +422,7 @@ class AdminController extends Controller {
      * @param array $request Request_method-specific parameters
      *
      * @return View
+     * @throws \Exception
      */
     public function do_RoleEdit(array $argv = array(), array $request = array()) {
         if (!G::$S->roleTest('Admin/Role')) {
@@ -469,6 +475,7 @@ class AdminController extends Controller {
      * @param array $request Request_method-specific parameters
      *
      * @return View
+     * @throws \Exception
      */
     public function do_loginLog(array $argv = array(), array $request = array()) {
         if (!G::$S->roleTest('Admin/Login')) {
@@ -526,13 +533,13 @@ class AdminController extends Controller {
                     $files[$path.'/models/'.$file] = Localizer::translate('admin.tables.includefail');
                     continue;
                 }
-                // If the file did not define a Record
-                if (!is_subclass_of($class, 'Record')) {
+                // If the file did not define a  ActiveRecord::class
+                if (!is_subclass_of($class, ActiveRecord::class)) {
                     $files[$path.'/models/'.$file] = Localizer::translate('admin.tables.notrecord');
                     continue;
                 }
                 $files[$path.'/models/'.$file] = $class;
-                /** @var Record $class Contains the name of a class that extends Record */
+                /** @var  ActiveRecord::class $class Contains the name of a class that extends  ActiveRecord::class */
                 $tables["$class"] = $class::verifyStructure();
             }
         }
