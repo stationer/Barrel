@@ -16,7 +16,7 @@ namespace Stationer\Barrel\models;
 
 use Stationer\Graphite\G;
 use Stationer\Graphite\data\PassiveRecord;
-use Stationer\Graphite\data\Login;
+use Stationer\Graphite\models\Login;
 use Stationer\Graphite\data\DataBroker;
 
 /**
@@ -87,8 +87,8 @@ FROM `".self::$table."` t LEFT JOIN `".Login::getTable()."` l ON t.`login_id` = 
      * @param string $table the table name
      * @param int    $key   the affected_id
      * @param mixed  $data  the data being saved
-     *
-     * @return string
+     * @return mixed
+     * @throws \Exception
      */
     public static function log($table, $key, $data) {
         $C = new static([

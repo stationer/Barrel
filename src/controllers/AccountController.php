@@ -18,8 +18,8 @@ use Stationer\Graphite\G;
 use Stationer\Graphite\View;
 use Stationer\Graphite\Security;
 use Stationer\Graphite\Controller;
-use Stationer\Graphite\data\Login;
-use Stationer\Barrel\data\ConfigLog;
+use Stationer\Graphite\models\Login;
+use Stationer\Barrel\models\ConfigLog;
 
 /**
  * AccountController class - performs user account related actions
@@ -107,6 +107,7 @@ class AccountController extends Controller {
      * @param array $request Request_method-specific parameters
      *
      * @return View
+     * @throws \Exception
      */
     public function do_recover(array $argv = array(), array $request = array()) {
         $this->View->_template = 'Account.Recover.php';
