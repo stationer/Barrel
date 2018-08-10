@@ -1,4 +1,6 @@
-<?php echo $View->render('header'); ?>
+<?php use Stationer\Graphite\Security;
+
+echo $View->render('header'); ?>
             <section class="Account">
                 <h2>Account Settings</h2>
                 <div id="bodyLogin">
