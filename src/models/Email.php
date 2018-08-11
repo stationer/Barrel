@@ -1,15 +1,14 @@
 <?php
 /**
  * Email - Email AR class
- * File : /^/models/Email.php
+ * File : /src/models/Email.php
  *
  * PHP version 5.3
  *
- * @category Graphite
- * @package  Core
+ * @package  Stationer\Barrel
  * @author   LoneFry <dev@lonefry.com>
- * @license  CC BY-NC-SA http://creativecommons.org/licenses/by-nc-sa/3.0/
- * @link     http://g.lonefry.com
+ * @license  MIT https://github.com/stationer/Barrel/blob/master/LICENSE
+ * @link     https://github.com/stationer/Barrel
  */
 
 namespace Stationer\Barrel\models;
@@ -25,11 +24,10 @@ use Stationer\Graphite\data\PassiveRecord;
  * Automatically sanitizes headers when set as array
  * Does NOT automatically sanitize headers when set as raw string
  *
- * @category Graphite
- * @package  Core
+ * @package  Stationer\Barrel
  * @author   LoneFry <dev@lonefry.com>
- * @license  CC BY-NC-SA http://creativecommons.org/licenses/by-nc-sa/3.0/
- * @link     http://g.lonefry.com
+ * @license  MIT https://github.com/stationer/Barrel/blob/master/LICENSE
+ * @link     https://github.com/stationer/Barrel
  * @see      PassiveRecord.php
  * @property int    email_id
  * @property int    $created_uts

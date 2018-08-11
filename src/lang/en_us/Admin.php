@@ -4,11 +4,10 @@
  *
  * PHP version 5.6
  *
- * @category Graphite
- * @package  Core
+ * @package  Stationer\Barrel
  * @author   Cris Bettis
- * @license  CC BY-NC-SA http://creativecommons.org/licenses/by-nc-sa/3.0/
- * @link     http://g.lonefry.com
+ * @license  MIT https://github.com/stationer/Barrel/blob/master/LICENSE
+ * @link     https://github.com/stationer/Barrel
  */
 
 return array(

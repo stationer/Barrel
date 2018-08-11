@@ -27,7 +27,7 @@ use Stationer\Graphite\data\DataBroker;
  * @author   Tyler Uebele <tyler.uebele@bettercarpeople.com>
  * @license  Copyright Better Car People, LLC
  * @link     http://bettercarpeople.com
- * @see      Record.php
+ * @see      PassiveRecord.php
  * @property int         $configlog_id
  * @property int         $created_uts
  * @property string      $updated_dts
