@@ -1,4 +1,6 @@
-<?php if (MODE != 'dev') {
+<?php
+use Stationer\Graphite\G;
+if (MODE != 'dev') {
     return;
 } ?>
 <details id="debug">
