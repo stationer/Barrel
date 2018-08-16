@@ -29,17 +29,17 @@ use Stationer\Graphite\data\PassiveRecord;
  * @license  MIT https://github.com/stationer/Barrel/blob/master/LICENSE
  * @link     https://github.com/stationer/Barrel
  * @see      PassiveRecord.php
- * @property int    email_id
+ * @property int    $email_id
  * @property int    $created_uts
  * @property string $updated_dts
  * @property int    $login_id
- * @property string headerRaw
- * @property string bodyRaw
- * @property string to
- * @property string from
- * @property string subject
- * @property int    date
- * @property string messageId
+ * @property string $headerRaw
+ * @property string $bodyRaw
+ * @property string $to
+ * @property string $from
+ * @property string $subject
+ * @property int    $date
+ * @property string $messageId
  */
 class Email extends PassiveRecord {
     /** @var string Table name, un-prefixed */

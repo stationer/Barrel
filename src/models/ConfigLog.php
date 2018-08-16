@@ -22,11 +22,10 @@ use Stationer\Graphite\data\DataBroker;
 /**
  * Config class - for logging config changes
  *
- * @category BetterCarPeople
- * @package  BCP
- * @author   Tyler Uebele <tyler.uebele@bettercarpeople.com>
- * @license  Copyright Better Car People, LLC
- * @link     http://bettercarpeople.com
+ * @package  Stationer\Barrel
+ * @author   Tyler Uebele
+ * @license  MIT https://github.com/stationer/Barrel/blob/master/LICENSE
+ * @link     https://github.com/stationer/Barrel
  * @see      PassiveRecord.php
  * @property int         $configlog_id
  * @property int         $created_uts
