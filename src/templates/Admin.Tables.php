@@ -56,7 +56,7 @@ foreach ($files as $file => $class) {
         </details>
 <?php
     }
-} G::croak($tables);
+} \croak($tables);
 ?>
 
 <?php echo $View->render('footer');
