@@ -52,7 +52,7 @@ class Email extends PassiveRecord {
     protected static $vars = [
         'email_id'    => ['type' => 'i', 'min' => 1, 'guard' => true],
         'created_uts' => ['type' => 'ts', 'min' => 0, 'guard' => true],
-        'updated_dts' => ['type' => 'dt', 'min' => NOW, 'def' => NOW, 'guard' => true],
+        'updated_dts' => ['type' => 'dt', 'def' => NOW, 'guard' => true],
         'headerRaw'   => ['type' => 's', 'max' => 65535],
         'bodyRaw'     => ['type' => 's', 'max' => 65535],
         'to'          => ['type' => 's', 'max' => 65535],
