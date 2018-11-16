@@ -159,12 +159,12 @@ if (MODE != 'dev') {
         if (isset($GLOBALS[$item])) { ?>
             <details>
                 <summary class="h4"><?php echo $item; ?> Array</summary>
-                <?php \croak($GLOBALS[$item], false); ?>
+                <?php \croak($GLOBALS[$item]); ?>
             </details>
         <?php }
     } ?>
     <details open="open">
         <summary class="h4">Query Log</summary>
-        <?php \croak($queryData, false); ?>
+        <?php \croak($queryData); ?>
     </details>
 </details>
