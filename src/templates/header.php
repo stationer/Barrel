@@ -17,7 +17,7 @@
       echo $_head;
 ?>
     </head>
-    <body>
+    <body class="<?php echo $_bodyClass; ?>">
         <header id="header">
             <h1 id="logo"><span><?php html($_siteName)?></span></h1>
             <div id="login"><?php
@@ -41,17 +41,22 @@ if ($_login_id) {
             <div class="clear"></div>
         </header>
 
-<?php G::$V->render('subheader');
+<?php G::$V->render('subheader'); ?>
 
-if (0 < $v = count($a = G::msg())) { ?>
-        <details id="msg" open="open">
-            <summary><?php echo $v;?> Messages:</summary>
-            <ul>
-<?php foreach ($a as $v) { ?>
-                <li class="<?php echo $v[1]; ?>"><?php echo $v[0]; ?></li>
-<?php } ?>
-            </ul>
-        </details>
-<?php } ?>
-
-        <section id="body">
+        <main>
+            <div class="container-fluid">
+                <div class="row">
+                    <?php if (!empty(G::msg())): ?>
+                        <section class="messages">
+                            <?php if (0 < $v = count($a = G::msg())) { ?>
+                                <details id="msg" open="open">
+                                    <summary><?php echo $v; ?> Messages:</summary>
+                                    <ul>
+                                        <?php foreach ($a as $v) { ?>
+                                            <li class="<?php echo $v[1]; ?>"><?php echo $v[0]; ?></li>
+                                        <?php } ?>
+                                    </ul>
+                                </details>
+                            <?php } ?>
+                        </section>
+                    <?php endif; ?>

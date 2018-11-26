@@ -1,4 +1,12 @@
-        </section>
+<?php
+/** @var \Stationer\Graphite\View $View */
+$_tail = $tail ?? '';
+?>
+                </div>
+            </div>
+
+<?php echo $View->render('debug'); ?>
+        </main>
         <footer id="footer">
         </footer>
         <?php echo $View->render('debug'); ?>
