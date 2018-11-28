@@ -34,6 +34,15 @@ class AccountController extends Controller {
     protected $action = 'login';
 
     /**
+     * Controller constructor
+     *
+     */
+    public function __construct() {
+        parent::__construct();
+        $this->View->_style(str_replace(SITE, '', dirname(__DIR__).'/css/letterhead.css'));
+    }
+
+    /**
      * Process Login form
      *
      * @param array $argv    Argument list passed from Dispatcher
