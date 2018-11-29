@@ -18,33 +18,40 @@
 ?>
     </head>
     <body class="<?php echo $_bodyClass; ?>">
-        <header id="header">
-            <h1 id="logo"><span><?php html($_siteName)?></span></h1>
-            <div id="login"><?php
-if ($_login_id) {
-        echo 'Hello, '.$_loginname
-            .'. (<a href="'.$_logoutURL.'">Logout</a> | '
-            .'<a href="/Account/edit" title="Your Account Settings">Account</a>)'
-            ;
-} else {
-        echo '(<a id="_loginLink" href="'.$_loginURL.'?_Lbl=Back&amp;_URI='.urlencode($_SERVER["REQUEST_URI"]).'">Login</a>)'
-            .'<script type="text/javascript">document.getElementById(\'_loginLink\').href += encodeURIComponent(location.hash);</script>';
-}
-            ?></div>
-            <nav>
-                <a href="/" title="Home Page">Home</a>
-                <a href="/Home/Contact" title="Contact">Contact</a>
-<?php if (G::$S && G::$S->Login && G::$S->roleTest('Admin')) { ?>
-                <a href="/Admin">Admin</a>
-<?php } ?>
-            </nav>
-            <div class="clear"></div>
-        </header>
+        <div class="container-fluid">
+            <div class="row">
+                <header id="header">
+                    <div>
+                        <h1><span><?php html($_siteName)?></span></h1>
+                    </div>
+                    <div id="login">
+                        <nav>
+                            <a href="/" title="Home Page">Home</a>
+                            <a href="/Home/Contact" title="Contact">Contact</a>
+                            <?php if (G::$S && G::$S->Login && G::$S->roleTest('Admin')) { ?>
+                                <a href="/Admin">Admin</a>
+                            <?php } ?>
+                            <?php
+                            if ($_login_id) {
+                                echo 'Hello, '.$_loginname
+                                    .'. <a href="'.$_logoutURL.'" class="c-btn m-outline">Logout</a>'
+                                    .'<a href="/Account/edit" class="c-btn m-outline" title="Your Account Settings">Account</a>'
+                                ;
+                            } else {
+                                echo '<a id="_loginLink" class="c-btn m-outline" href="'.$_loginURL.'?_Lbl=Back&amp;_URI='.urlencode($_SERVER["REQUEST_URI"]).'">Login</a>'
+                                    .'<script type="text/javascript">document.getElementById(\'_loginLink\').href += encodeURIComponent(location.hash);</script>';
+                            }
+                            ?>
+                        </nav>
+                    </div>
+                </header>
+            </div>
+        </div>
 
 <?php G::$V->render('subheader'); ?>
 
         <main>
-            <div class="container-fluid">
+            <div class="container">
                 <div class="row">
                     <?php if (!empty(G::msg())): ?>
                         <section class="messages">
