@@ -1,0 +1,54 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "91672d4fbaac2f73750f05c8050317fc",
+    "packages": [
+        {
+            "name": "stationer/graphite",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stationer/Graphite.git",
+                "reference": "ca8376917447e45ab1eb6f5f6a3bd91020bdb58c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stationer/Graphite/zipball/ca8376917447e45ab1eb6f5f6a3bd91020bdb58c",
+                "reference": "ca8376917447e45ab1eb6f5f6a3bd91020bdb58c",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.0"
+            },
+            "suggest": {
+                "graphite/barrel": "Default controllers for basic auth/admin functionality",
+                "mpdf/mpdf": "To render views as PDF"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Stationer\\Graphite\\": "src/"
+                }
+            },
+            "description": "A small PHP framework",
+            "homepage": "https://github.com/stationer/Graphite",
+            "support": {
+                "source": "https://github.com/stationer/Graphite/tree/master"
+            },
+            "time": "2018-11-21T18:18:21+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "dev",
+    "stability-flags": [],
+    "prefer-stable": true,
+    "prefer-lowest": false,
+    "platform": {
+        "php": "^7.0"
+    },
+    "platform-dev": []
+}
