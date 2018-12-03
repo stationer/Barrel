@@ -17,6 +17,7 @@ use Stationer\Graphite\G;
 use Stationer\Graphite\View;
 use Stationer\Graphite\Security;
 use Stationer\Graphite\Controller;
+use Stationer\Graphite\data\IDataProvider;
 use Stationer\Graphite\models\Login;
 use Stationer\Barrel\models\ConfigLog;
 
@@ -36,9 +37,12 @@ class AccountController extends Controller {
     /**
      * Controller constructor
      *
+     * @param array         $argv Argument list passed from Dispatcher
+     * @param IDataProvider $DB   DataProvider to use with Controller
+     * @param View          $View Graphite View helper
      */
-    public function __construct() {
-        parent::__construct();
+    public function __construct(array $argv = [], IDataProvider $DB = null, View $View = null) {
+        parent::__construct($argv, $DB, $View);
         $this->View->_style(str_replace(SITE, '', dirname(__DIR__).'/css/letterhead.css'));
     }
 
