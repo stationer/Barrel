@@ -1,35 +1,47 @@
-<?php echo $View->render('header'); ?>
-<nav>
-    <ul class="breadcrumbs">
-        <li><a href="/Admin">Admin</a></li>
-        <li><a href="/Admin/Role">Roles</a></li>
-    </ul>
-</nav>
-    <h2>Add a New Role</h2>
+<?php
+/** @var \Stationer\Graphite\View $View */
+/** @var \Stationer\Graphite\models\Role $R */
 
-    <form action="/Admin/RoleAdd" method="post">
-        <table class="form">
-            <tr>
-                <th>Label</th>
-                <td><input type="text" name="label" value="<?php html($R->label);?>"></td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td><textarea rows="4" cols="40" name="description"><?php html($R->description);?></textarea></td>
-            </tr>
-            <tr>
-                <th>Disabled?</th>
-                <td><select name="disabled">
-                        <option value="0">No, Role is Enabled</option>
-                        <option value="1"<?php if (1==$R->disabled) {echo ' selected';}?>>Yes, Role is Disabled</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <input type="submit" value="Submit">
-                </td>
-            </tr>
-        </table>
+echo $View->render('header'); ?>
+    <nav>
+        <ul class="breadcrumbs">
+            <li><a href="/Admin">Admin</a></li>
+            <li><a href="/Admin/Role">Roles</a></li>
+        </ul>
+    </nav>
+
+    <form class="m-flex" action="/Admin/RoleAdd" method="post">
+        <section>
+            <div class="c-card">
+                <div class="header">
+                    <h2>Add a New Role</h2>
+                </div>
+                <div class="content">
+                    <div class="form-group">
+                        <label for="label">Label</label>
+                        <input class="form-control" type="text" name="label" id="label"
+                               value="<?php html($R->label); ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea class="form-control" rows="4" cols="40" name="description"
+                                  id="description"><?php html($R->description); ?></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="disabled">Disabled?</label>
+                        <select class="form-control" name="disabled" id="disabled">
+                            <option value="0">No, Role is Enabled</option>
+                            <option value="1"<?php if (1 == $R->disabled) {
+                                echo ' selected';
+                            } ?>>Yes, Role is Disabled
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="c-btn" value="Submit">
+                    </div>
+                </div>
+            </div>
+        </section>
     </form>
 <?php echo $View->render('footer');

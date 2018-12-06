@@ -1,4 +1,7 @@
-<?php echo $View->render('header'); ?>
+<?php
+/** @var \Stationer\Graphite\View $View */
+
+echo $View->render('header'); ?>
 <form action="/Installer/install" method="post" id="installer">
 <div>
 <?php if (isset($config)) { ?>
