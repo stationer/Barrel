@@ -1,9 +1,37 @@
-<?php use Stationer\Graphite\G; ?>
+<?php
+/** @var string $_title */
+$_title = $_title ?? '';
+/** @var string $_baseURL */
+/** @var array $_meta */
+$_meta = $_meta ?? [];
+/** @var array $_script */
+$_script = $_script ?? [];
+/** @var array $_link */
+$_link = $_link ?? [];
+/** @var string $_head */
+$_head = $_head ?? '';
+/** @var string $_bodyClass */
+$_bodyClass = $_bodyClass ?? '';
+/** @var string $_siteName */
+$_siteName = $_siteName ?? '';
+/** @var string $_login_id */
+$_login_id = $_login_id ?? '';
+/** @var string $_loginname */
+$_loginname = $_loginname ?? '';
+/** @var string $_logoutURL */
+$_logoutURL = $_logoutURL ?? '';
+/** @var string $_loginURL */
+$_loginURL = $_loginURL ?? '';
+
+use Stationer\Graphite\G;
+?>
 <!DOCTYPE HTML>
 <html>
     <head>
         <title><?php html($_title); ?></title>
-        <base href="<?php html($_siteURL); ?>">
+<?php if (!empty($_baseURL)) { ?>
+        <base href="<?php html($_baseURL); ?>">
+<?php } ?>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 <?php foreach ($_meta as $k => $v) { ?>
         <meta name="<?php html($k)?>" content="<?php html($v)?>">

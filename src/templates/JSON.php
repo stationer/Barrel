@@ -1,4 +1,9 @@
 <?php
+/** @var array|object $data */
+/** @var bool $showJsonDebug */
+
+use \Stationer\Graphite\G;
+
 if (isset($data)) {
     headers_sent() || header('Content-type: application/json');
 

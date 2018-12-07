@@ -13,6 +13,7 @@
 
 namespace Stationer\Barrel\controllers;
 
+use Stationer\Graphite\data\IDataProvider;
 use Stationer\Graphite\G;
 use Stationer\Graphite\View;
 use Stationer\Graphite\Security;
@@ -35,6 +36,18 @@ use Stationer\Graphite\models\LoginLog;
 class AdminController extends Controller {
     /** @var string Default action */
     protected $action = 'list';
+
+    /**
+     * Controller constructor
+     *
+     * @param array         $argv Argument list passed from Dispatcher
+     * @param IDataProvider $DB   DataProvider to use with Controller
+     * @param View          $View Graphite View helper
+     */
+    public function __construct(array $argv = [], IDataProvider $DB = null, View $View = null) {
+        parent::__construct($argv, $DB, $View);
+        $this->View->_style(str_replace(SITE, '', dirname(__DIR__).'/css/letterhead.css'));
+    }
 
     /**
      * Display list of available Admin actions
@@ -82,8 +95,7 @@ class AdminController extends Controller {
             }
             $this->View->activeLetter = $argv[1];
         } else {
-            $l = new Login();
-            $this->View->list = $l->search(50, 0, 'loginname');
+            $this->View->list = $this->DB->fetch(Login::class, [], ['loginname' => true], 50, 0);
             $this->View->activeLetter = '';
         }
         $this->View->letters = Login::initials();
@@ -224,8 +236,7 @@ class AdminController extends Controller {
             return $this->do_Login($argv);
         }
 
-        $L = new Login($argv[1]);
-        $this->DB->load($L);
+        $L = $this->DB->byPK(Login::class, $argv[1]);
 
         // handle changes to the Login
         if (isset($request['login_id']) && $request['login_id'] == $L->login_id
@@ -314,9 +325,8 @@ class AdminController extends Controller {
         }
 
         // TODO: make a better way to do grants that doesn't involve loading the whole role list
-        $R = new Role();
         /** @var Role[] $Roles */
-        $Roles = $R->search(1000, 0, 'label');
+        $Roles = $this->DB->fetch(Role::class, [], ['label' => true], 1000);
         // handle grant/revoke changes
         if (isset($request['grant']) && is_array($request['grant'])) {
             $i = 0;
@@ -343,8 +353,7 @@ class AdminController extends Controller {
         $this->View->letters = Login::initials();
         $this->View->referrer = $L->getReferrer();
 
-        $LL = new LoginLog(array('login_id' => $L->login_id));
-        $this->View->log = $LL->search(100, 0, 'pkey', true);
+        $this->View->log = $this->DB->fetch(LoginLog::class, ['login_id' => $L->login_id], ['pkey' => true], 100);
 
         return $this->View;
     }
@@ -366,8 +375,7 @@ class AdminController extends Controller {
         $this->View->_template = 'Admin.Role.php';
         $this->View->_title = 'Select Role : ' . $this->View->_siteName;
 
-        $l = new Role();
-        $this->View->list = $l->search(50, 0, 'label');
+        $this->View->list = $this->DB->fetch(Role::class, [], ['label' => true]);
 
         return $this->View;
     }
@@ -483,8 +491,7 @@ class AdminController extends Controller {
         $this->View->_template = 'Admin.LoginLog.php';
         $this->View->_title    = $this->View->_siteName.': Login Log';
 
-        $LL = new LoginLog();
-        $this->View->log = $LL->search(100, 0, 'pkey', true);
+        $this->View->log = $this->DB->fetch(LoginLog::class, [], ['pkey' => true], 100);
 
         return $this->View;
     }
@@ -492,6 +499,7 @@ class AdminController extends Controller {
     /**
      * Compare model definitions to actual table definitions
      * TODO: Also check min/max data against set limits
+     * TODO: Adapt this for PassiveRecords
      *
      * @param array $argv    Argument list passed from Dispatcher
      * @param array $request Request_method-specific parameters
@@ -503,6 +511,7 @@ class AdminController extends Controller {
             return parent::do_403($argv);
         }
 
+        G::msg('TODO: Adapt this for PassiveRecord classes', 'danger');
         G::$V->_template = 'Admin.Tables.php';
         G::$V->_title    = G::$V->_siteName.': Tables';
 
