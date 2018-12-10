@@ -59,6 +59,9 @@ use Stationer\Graphite\G;
                             <?php if (G::$S && G::$S->Login && G::$S->roleTest('Admin')) { ?>
                                 <a href="/Admin">Admin</a>
                             <?php } ?>
+                            <?php if (G::$S && G::$S->Login && G::$S->roleTest('Pencil')) { ?>
+                                <a href="/P_Dashboard">Pencil</a>
+                            <?php } ?>
                             <?php
                             if ($_login_id) {
                                 echo 'Hello, '.$_loginname

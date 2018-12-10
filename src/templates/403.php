@@ -12,4 +12,8 @@ echo $View->render('header'); ?>
             </div>
         </div>
     </section>
-<?php echo $View->render('footer');
+
+<?php
+include 'Account._loginForm.php';
+
+echo $View->render('footer');
