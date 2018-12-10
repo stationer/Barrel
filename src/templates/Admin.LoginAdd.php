@@ -47,20 +47,6 @@ echo $View->render('header'); ?>
                         <label class="msg" for="email2" id="email2Msg"></label>
                     </div>
                     <div class="form-group">
-                        <label for="sessionStrength">Session Strength</label>
-                        <select class="form-control" name="sessionStrength" id="sessionStrength">
-                            <option value="2">Secure session to Browser and IP</option>
-                            <option value="1"<?php if (1 == $L->sessionStrength) {
-                                echo ' selected';
-                            } ?>>Secure session to Browser only
-                            </option>
-                            <option value="0"<?php if (0 == $L->sessionStrength) {
-                                echo ' selected';
-                            } ?>>Allow multiple concurrent sessions
-                            </option>
-                        </select>
-                    </div>
-                    <div class="form-group">
                         <label for="flagChangePass">Must Change Password?</label>
                         <select class="form-control" name="flagChangePass" id="flagChangePass">
                             <option value="0">No</option>
