@@ -3,18 +3,21 @@
  * Admin Controller - performs Administrative actions
  * File : /^/controllers/AdminController.php
  *
- * PHP version 5.6
+ * PHP version 7.0
  *
  * @package  Stationer\Barrel
  * @author   LoneFry <dev@lonefry.com>
  * @license  MIT https://github.com/stationer/Barrel/blob/master/LICENSE
  * @link     https://github.com/stationer/Barrel
+ *
+ * @TODO: Make this file less like I wrote it ten years ago
  */
 
 namespace Stationer\Barrel\controllers;
 
 use Stationer\Graphite\data\IDataProvider;
 use Stationer\Graphite\G;
+use Stationer\Graphite\RevisionWorkflow;
 use Stationer\Graphite\View;
 use Stationer\Graphite\Security;
 use Stationer\Graphite\Localizer;
@@ -302,9 +305,11 @@ class AdminController extends Controller {
                 $update = false;
             }
 
+            $diff = $L->getDiff();
             $result = false;
             if ($update && $result = $this->DB->update($L)) {
                 G::msg(G::_('admin.loginedit.msg.success'));
+                G::build(RevisionWorkflow::class)->log('Login', $L->login_id, $diff);
             } elseif ($update && (null === $result)) {
                 G::msg(G::_('admin.loginedit.msg.nochange'));
             } else {
@@ -354,6 +359,7 @@ class AdminController extends Controller {
         $this->View->referrer = $L->getReferrer();
 
         $this->View->log = $this->DB->fetch(LoginLog::class, ['login_id' => $L->login_id], ['pkey' => true], 100);
+        $this->View->Revisions = G::build(RevisionWorkflow::class)->get('Login', $L->login_id);
 
         return $this->View;
     }
@@ -455,8 +461,10 @@ class AdminController extends Controller {
             $R->description = $request['description'];
             $R->disabled = $request['disabled'];
 
+            $diff = $R->getDiff();
             if ($result = $this->DB->update($R)) {
                 G::msg('Role Edited');
+                G::build(RevisionWorkflow::class)->log('Role', $R->login_id, $diff);
             } elseif (null === $result) {
                 G::msg('No modifications to Role detected.');
             } else {
@@ -470,6 +478,7 @@ class AdminController extends Controller {
         $this->View->R = $R;
 
         $this->View->creator = $R->getCreator();
+        $this->View->Revisions = G::build(RevisionWorkflow::class)->get('Role', $R->role_id);
 
         return $this->View;
     }
