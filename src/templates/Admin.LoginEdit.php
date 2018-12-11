@@ -2,7 +2,7 @@
 /** @var \Stationer\Graphite\View $View */
 /** @var \Stationer\Graphite\models\Login $L */
 /** @var \Stationer\Graphite\models\LoginLog[] $log */
-/** @var \Stationer\Graphite\models\Role $Roles[] */
+/** @var \Stationer\Graphite\models\Role[] $Roles */
 /** @var string $referrer */
 
 echo $View->render('header'); ?>
@@ -145,43 +145,47 @@ echo $View->render('header'); ?>
     </form>
     <section>
         <div class="c-card">
-            <div class="header">
-                <h2>Login Log</h2>
-            </div>
-            <div class="content">
-                <table class="list">
-                    <thead>
-                    <tr>
-                        <th>pkey</th>
-                        <th>date</th>
-                        <th>IP</th>
-                        <th>user agent</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <?php
-                    if (is_array($log) && count($log)) {
-                        foreach ($log as $k => $v) {
+            <details>
+                <summary class="header">
+                    <h2>Login Log</h2>
+                </summary>
+                <div class="content">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>pkey</th>
+                            <th>date</th>
+                            <th>IP</th>
+                            <th>user agent</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php
+                        if (is_array($log) && count($log)) {
+                            foreach ($log as $k => $v) {
+                                ?>
+                                <tr>
+                                    <td><?php html($v->pkey); ?></td>
+                                    <td><?php echo date("r", $v->iDate); ?></td>
+                                    <td><?php html($v->ip); ?></td>
+                                    <td><?php html($v->ua); ?></td>
+                                </tr>
+                                <?php
+                            }
+                        } else {
                             ?>
                             <tr>
-                                <td><?php html($v->pkey); ?></td>
-                                <td><?php echo date("r", $v->iDate); ?></td>
-                                <td><?php html($v->ip); ?></td>
-                                <td><?php html($v->ua); ?></td>
+                                <td colspan="4">No records found.</td>
                             </tr>
                             <?php
                         }
-                    } else {
                         ?>
-                        <tr>
-                            <td colspan="4">No records found.</td>
-                        </tr>
-                        <?php
-                    }
-                    ?>
-                    </tbody>
-                </table>
-            </div>
+                        </tbody>
+                    </table>
+                </div>
+            </details>
         </div>
     </section>
+<?php include 'revisions.php'; ?>
+
 <?php echo $View->render('footer');
