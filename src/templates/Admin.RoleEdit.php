@@ -101,4 +101,6 @@ echo $View->render('header'); ?>
             </div>
         </section>
     </form>
+<?php include 'revisions.php'; ?>
+
 <?php echo $View->render('footer');
