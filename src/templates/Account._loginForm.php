@@ -28,6 +28,9 @@ $_logoutURL = $_logoutURL ?? '';
 <?php } ?>
     <section class="Account">
         <div class="c-card l-login">
+            <div class="alert alert-warning" role="alert">
+                If you're a Client / Dealership, <a href="https://www.bettercarpeople.com/login">login here!</a>
+            </div>
             <div class="header">
                 <h2>Log in to your account</h2>
             </div>
