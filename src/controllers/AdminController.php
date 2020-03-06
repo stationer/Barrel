@@ -122,7 +122,7 @@ class AdminController extends Controller {
 
         $this->View->_template = 'Admin.LoginAdd.php';
         $this->View->_title    = 'Add Login : ' . $this->View->_siteName;
-        $this->View->_script('/%5E/js/validate-email.min.js');
+        $this->View->_script(str_replace(SITE, '', __DIR__).'/../js/validate-email.min.js');
 
         if (isset($request['loginname']) && isset($request['realname'])
             && isset($request['pass1']) && isset($request['pass2'])

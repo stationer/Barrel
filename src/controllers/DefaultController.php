@@ -37,9 +37,9 @@ class DefaultController extends Controller {
      *
      * @return View
      */
-    public function do_404(array $argv = array(), array $request = array()) {
-        header("HTTP/1.0 404 File Not Found");
-        $this->action = '404';
+    public function do_404(array $argv = [], array $request = []) {
+        header_if_not_sent("HTTP/1.0 404 File Not Found");
+        $this->action          = '404';
         $this->View->_template = '404.php';
         $this->View->_header   = 'header.php';
         $this->View->_footer   = 'footer.php';
@@ -57,9 +57,9 @@ class DefaultController extends Controller {
      *
      * @return View
      */
-    public function do_500(array $argv = array(), array $request = array()) {
-        header("HTTP/1.0 500 Internal Server Error");
-        $this->action = '500';
+    public function do_500(array $argv = [], array $request = []) {
+        header_if_not_sent("HTTP/1.0 500 Internal Server Error");
+        $this->action          = '500';
         $this->View->_template = '500.php';
         $this->View->_header   = 'header.php';
         $this->View->_footer   = 'footer.php';

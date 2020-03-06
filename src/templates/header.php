@@ -62,6 +62,9 @@ use Stationer\Graphite\G;
                             <?php if (G::$S && G::$S->Login && G::$S->roleTest('Pencil')) { ?>
                                 <a href="/P_Dashboard">Pencil</a>
                             <?php } ?>
+                            <?php if (G::$S && G::$S->Login && G::$S->roleTest('Ledger')) { ?>
+                                <a href="/Ledger">Ledger</a>
+                            <?php } ?>
                             <?php
                             if ($_login_id) {
                                 echo 'Hello, '.$_loginname
@@ -79,7 +82,7 @@ use Stationer\Graphite\G;
             </div>
         </div>
 
-<?php G::$V->render('subheader'); ?>
+<?php echo $this->render('subheader'); ?>
 
         <main>
             <div class="container">
